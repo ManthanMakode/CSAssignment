@@ -6,8 +6,22 @@ Q=7
 n = P*Q
 Φn = (P-1)*(Q-1)
 
+def gcd(a, h):
+    temp = 0
+    while(1):
+        temp = a % h
+        if (temp == 0):
+            return h
+        a = h
+        h = temp
+
 def generate_e():
     e = random.randrange(1,Φn)
+    while (e < Φn):
+        if(gcd(e, Φn) == 1):
+            break
+        else:
+            e = e+1
     return e
 
 def generate_d():
@@ -23,7 +37,6 @@ def encrypt(msg):
     return "".join(str(i) for i in e_text), e_text
     # Encrypted Data c = (89 ** e) % n
 
-
 def decrypt():
     global e_text
     d_text = ""
@@ -34,7 +47,6 @@ def decrypt():
 
 e = generate_e()
 d = generate_d()
-
 msg = input("Enter the String : ")
 
 encrypt_text, e_text = encrypt(msg)
